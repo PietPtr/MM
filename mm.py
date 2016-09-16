@@ -3,7 +3,7 @@ import time
 import os.path
 
 def log(submission, word, prices):
-    file_name = submission.url.split("/")[6]
+    file_name = "./log/" + submission.url.split("/")[6]
     print file_name
     if not os.path.isfile(file_name):
         print "Writing"
