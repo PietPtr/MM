@@ -49,5 +49,5 @@ while True:
         # check if words of interest are in the title after [H] but before [W]
         for i in range(0, len(words)):
             word = " " + words[i] + " "
-            if words[i] in title and not os.path.isfile(file_name):
+            if word in title and not os.path.isfile(file_name):
                 log(submission, words[i], prices)
