@@ -11,16 +11,14 @@ def log(submission, word, prices):
         file.write("Word found: " + word)
         file.write("\nFull Title: " + submission.title)
         file.write("\nURL to post: " + submission.url)
-        file.write("\nPrices found:")
-        for p in prices:
-            file.write(p + "$")
+        file.write("\nPrices found:" + prices)
 
         file.close()
 
 
 r = praw.Reddit(user_agent='Mech market logger for market research in mechanical keyboards')
 
-words = ["SA", "DSA", "gmk", "Carbon", "Hydro", "a"]
+words = ["SA", "DSA", "gmk", "Carbon", "Hydro"]
 words = [x.lower() for x in words]
 
 while True:
