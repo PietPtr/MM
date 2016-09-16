@@ -3,17 +3,14 @@ import time
 import os.path
 
 def log(submission, word, prices):
-    file_name = "./log/" + submission.url.split("/")[6]
-    print file_name
-    if not os.path.isfile(file_name):
-        print "Writing"
-        file = open(file_name, 'w')
-        file.write("Word found: " + word)
-        file.write("\nFull Title: " + submission.title)
-        file.write("\nURL to post: " + submission.url)
-        file.write("\nPrices found:" + prices)
+    file = open(file_name, 'w')
+    file.write("Word found: " + word)
+    file.write("\nFull Title: " + submission.title)
+    file.write("\nURL to post: " + submission.url)
+    file.write("\nPrices found:" + str(prices))
+    file.write("\n\nRest of the text:\n\n" + submission.selftext)
 
-        file.close()
+    file.close()
 
 
 r = praw.Reddit(user_agent='Mech market logger for market research in mechanical keyboards')
@@ -22,14 +19,15 @@ words = ["SA", "DSA", "gmk", "Carbon", "Hydro"]
 words = [x.lower() for x in words]
 
 while True:
+    print "Scanning..."
     for submission in r.get_subreddit('mechmarket').get_new(limit=1):
-        time.sleep(5)
-        print submission.title
+        time.sleep(1)
 
         # modify the raw data so it is easier to search in
 
         title = submission.title.lower()
         text = submission.selftext.lower()
+        print title
         try:
             title = title.split("[h]")[1].split("[w]")[0]
         except:
@@ -45,7 +43,11 @@ while True:
             price = splittext[0].split(" ")
             prices.append(price[len(price) - 1])
 
+
+        file_name = "./log/" + submission.url.split("/")[6]
+
         # check if words of interest are in the title after [H] but before [W]
         for i in range(0, len(words)):
-            if words[i] in title:
+            word = " " + words[i] + " "
+            if words[i] in title and not os.path.isfile(file_name):
                 log(submission, words[i], prices)
