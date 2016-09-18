@@ -15,13 +15,14 @@ def log(submission, word, prices):
 
 r = praw.Reddit(user_agent='Mech market logger for market research in mechanical keyboards')
 
-words = ["SA", "DSA", "gmk", "Carbon", "Hydro"]
+words = ["SA", "DSA", "gmk", "Carbon", "Hydro", "Jukebox", "1976", "Hyperfuse", \
+	 "Hana", "Pulse", "Troubled Minds", "Otaku"]
 words = [x.lower() for x in words]
 
 while True:
     print "Scanning..."
     for submission in r.get_subreddit('mechmarket').get_new(limit=1):
-        time.sleep(1)
+        time.sleep(16)
 
         # modify the raw data so it is easier to search in
 
@@ -30,6 +31,8 @@ while True:
         print title
         try:
             title = title.split("[h]")[1].split("[w]")[0]
+            title = title.replace(",","").replace(".","")
+            print title
         except:
             continue
 
