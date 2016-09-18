@@ -4,11 +4,15 @@ import os.path
 
 def log(submission, word, prices):
     file = open(file_name, 'w')
-    file.write("Word found: " + word)
-    file.write("\nFull Title: " + submission.title)
-    file.write("\nURL to post: " + submission.url)
-    file.write("\nPrices found:" + str(prices))
-    file.write("\n\nRest of the text:\n\n" + submission.selftext)
+    try:
+        file.write("Word found: " + word)
+        file.write("\nFull Title: " + submission.title)
+        file.write("\nURL to post: " + submission.url)
+        file.write("\nPrices found:" + str(prices))
+        file.write("\n\nRest of the text:\n\n" + submission.selftext)
+    except UnicodeEncodeError:
+        file.write("Something went wrong writing the file, here is the link:")
+        file.write(submission.url)
 
     file.close()
 
@@ -16,7 +20,7 @@ def log(submission, word, prices):
 r = praw.Reddit(user_agent='Mech market logger for market research in mechanical keyboards')
 
 words = ["SA", "DSA", "gmk", "Carbon", "Hydro", "Jukebox", "1976", "Hyperfuse", \
-	 "Hana", "Pulse", "Troubled Minds", "Otaku"]
+	 "Hana", "Pulse", "Troubled Minds", "Otaku", "Triumph Adler"]
 words = [x.lower() for x in words]
 
 while True:
