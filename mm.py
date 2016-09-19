@@ -25,8 +25,12 @@ words = [x.lower() for x in words]
 
 while True:
     print "Scanning..."
-    for submission in r.get_subreddit('mechmarket').get_new(limit=1):
-        time.sleep(16)
+    time.sleep(16)
+    try:
+        submission = r.get_subreddit('mechmarket').get_new(limit=1)[0]
+    except:
+        continue
+
 
         # modify the raw data so it is easier to search in
 
