@@ -20,8 +20,9 @@ def log(submission, word, prices):
 
 r = praw.Reddit(user_agent='Mech market logger for market research in mechanical keyboards')
 
-words = ["Carbon", "Hydro", "Jukebox", "1976", "Hyperfuse", "Ice Cap"\
-	 "Hana", "Pulse", "Troubled Minds", "Otaku", "Triumph Adler", "Deep Space"]
+words = ["Carbon", "Hydro", "Jukebox", "1976", "Hyperfuse", "Ice Cap" \
+	 "Hana", "Pulse", "Troubled Minds", "Otaku", "Triumph Adler", \
+         "Deep Space", "Skeletor"]
 words = [x.lower() for x in words]
 
 while True:
