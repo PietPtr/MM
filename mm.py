@@ -20,13 +20,12 @@ def log(submission, word, prices):
 
 r = praw.Reddit(user_agent='Mech market logger for market research in mechanical keyboards')
 
-words = ["SA", "DSA", "gmk", "Carbon", "Hydro", "Jukebox", "1976", "Hyperfuse", \
-	 "Hana", "Pulse", "Troubled Minds", "Otaku", "Triumph Adler"]
+words = ["Carbon", "Hydro", "Jukebox", "1976", "Hyperfuse", "Ice Cap"\
+	 "Hana", "Pulse", "Troubled Minds", "Otaku", "Triumph Adler", "Deep Space"]
 words = [x.lower() for x in words]
 
 while True:
     print "Scanning..."
-    time.sleep(16)
 
     submission = 0
     try:
@@ -39,14 +38,20 @@ while True:
     # modify the raw data so it is easier to search in
 
     title = submission.title.lower()
+
     text = submission.selftext.lower()
     print title
     try:
+        if not "paypal" in title.split("[w]")[1]:
+            print "Not for sale"
+            continue
+        print "For sale!"
         title = title.split("[h]")[1].split("[w]")[0]
         title = title.replace(",","").replace(".","")
         print title
     except:
         continue
+
 
 
     # check if some kind of price is mentioned in the text
@@ -66,3 +71,6 @@ while True:
         word = " " + words[i] + " "
         if word in title and not os.path.isfile(file_name):
             log(submission, words[i], prices)
+
+
+    time.sleep(16)
