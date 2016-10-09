@@ -42,7 +42,8 @@ while True:
     text = submission.selftext.lower()
     print title
     try:
-        if not "paypal" in title.split("[w]")[1]:
+        want = title.split("[w]")[1]
+        if not ("paypal" in want or "wallet" in want :
             print "Not for sale"
             continue
         print "For sale!"
