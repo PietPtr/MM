@@ -3,6 +3,8 @@ import time
 import os.path
 import sys
 
+sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
+
 def log(submission, word, prices):
     file = open(file_name, 'w')
     try:
@@ -20,13 +22,17 @@ def log(submission, word, prices):
 
 r = praw.Reddit(user_agent='Mech market logger for market research in mechanical keyboards')
 
-words = ["Carbon", "Hydro", "Jukebox", "1976", "Hyperfuse", "Ice Cap" \
-	 "Hana", "Pulse", "Troubled Minds", "Otaku", "Triumph Adler", \
-         "Deep Space", "Skeletor"]
+#words = ["Carbon", "Hydro", "Jukebox", "1976", "Hyperfuse", "Ice Cap" \
+#	 "Hana", "Pulse", "Troubled Minds", "Otaku", "Triumph Adler", \
+#         "Deep Space", "Skeletor"]
+words = ["Carbon"]
+
 words = [x.lower() for x in words]
 
 while True:
-    print "Scanning..."
+    print(time.clock())
+
+    time.sleep(30)
 
     submission = 0
     try:
@@ -41,16 +47,13 @@ while True:
     title = submission.title.lower()
 
     text = submission.selftext.lower()
-    print title
+    #print(title)
     try:
         want = title.split("[w]")[1]
-        if not ("paypal" in want or "wallet" in want :
-            print "Not for sale"
+        if not ("paypal" in want or "wallet" in want):
             continue
-        print "For sale!"
         title = title.split("[h]")[1].split("[w]")[0]
         title = title.replace(",","").replace(".","")
-        print title
     except:
         continue
 
@@ -73,6 +76,3 @@ while True:
         word = " " + words[i] + " "
         if word in title and not os.path.isfile(file_name):
             log(submission, words[i], prices)
-
-
-    time.sleep(16)
